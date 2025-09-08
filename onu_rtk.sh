@@ -21,13 +21,13 @@
 # Author: Alexey D. Filimonov <alexey@filimonic.net>
 # Project page: https://github.com/filimonic/collectd-exec_onu_rtk
 
-# Approximate interval can be passed as argument#1 in seconds, defaults 60
-# Startup delay can be passed as argument#2 in seconds, defaults COLLECTD_INTERVAL
+# Startup delay can be passed as argument#1 in seconds, defaults COLLECTD_INTERVAL
 # Env variables:
 # DEBUG_CMD=[0|1]. Prints debug to output. For interactive debuging
 # DEBUG_OUTPUT_FILE=[path]. Duplicates output to this file
 
-LOOP_INTERVAL=${1:-60}
+LOOP_INTERVAL=${COLLECTD_INTERVAL:-60}
+LOOP_INTERVAL=${COLLECTD_INTERVAL%%.*} # remove decimals
 #DEBUG_OUTPUT_FILE=/tmp/onu_rtk.log
 #DEBUG_CMD=1
 DEBUG_OUTPUT_FILE=${DEBUG_OUTPUT_FILE:-/dev/null}
@@ -40,7 +40,7 @@ TELNET_CMD="${TELNET_BIN} -c -E"
 SEVERITY_FAILURE="failure"
 SEVERITY_WARNING="warning"
 SEVERITY_OK="okay"
-STARTUP_DELAY="${2:-${COLLECTD_INTERVAL:-$LOOP_INTERVAL}}"
+STARTUP_DELAY="${1:-${COLLECTD_INTERVAL:-$LOOP_INTERVAL}}"
 STARTUP_DELAY=${STARTUP_DELAY%%.*} # remove decimals
 
 # Include OpenWRT functions
