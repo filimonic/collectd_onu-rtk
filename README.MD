@@ -90,6 +90,11 @@ It is developed to run [OpenWrt][3] mainly, this explains strange [dependencies]
       ```
       /etc/init.d/collectd restart
       ```
+    - Make this tool pass sysupgrade
+      ```
+      echo /usr/lib/collectd/onu_rtk.sh >> /etc/sysupgrade.conf
+      echo /etc/collectd.conf >> /etc/sysupgrade.conf 
+      ```
 
 ## OpenWrt dependencies
 
