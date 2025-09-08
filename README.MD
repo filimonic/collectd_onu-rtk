@@ -102,6 +102,6 @@ I assume `collectd` is already running on your OpenWrt device.
 
 To run this with `collectd`, you need to install:
 
-- `collectd-mod-exec`: 26 KiB.
-- `telnet-bsd`: 46 KiB.
-- `sexpect`: 24 KiB.
+- `collectd-mod-exec`: 65 KiB.
+- `telnet-bsd`: 137 KiB.
+- `sexpect`: 66 KiB.
