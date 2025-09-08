@@ -62,10 +62,11 @@ It is developed to run [OpenWrt][3] mainly, this explains strange [dependencies]
     </LoadPlugin>
     ```
   - Add `exec` plugin section in `/etc/collectd.conf`. Here we can specify number
-    of seconds for script to collect data as parameter.
+    of seconds for script to collect data as 1st parameter (default 60), and startup
+    delay as 2nd parameter (default as specified in collectd LoadPlugin or Global).
     ```
     <Plugin "exec">
-      Exec "nobody:nogroup" "/bin/ash" "/usr/lib/collectd/onu_rtk.sh" "60"
+      Exec "nobody:nogroup" "/bin/ash" "/usr/lib/collectd/onu_rtk.sh" "60" "15"
     </Plugin>
     ```
   - Configure your ONUs. Please note that, as we running as `nobody`, we should allow

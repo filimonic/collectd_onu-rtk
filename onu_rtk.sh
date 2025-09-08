@@ -17,11 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-# Version: 1.0.0
+# Version: 1.0.1
 # Author: Alexey D. Filimonov <alexey@filimonic.net>
 # Project page: https://github.com/filimonic/collectd-exec_onu_rtk
 
-# Approximate interval can be passed as argument in seconds, defaults 60
+# Approximate interval can be passed as argument#1 in seconds, defaults 60
+# Startup delay can be passed as argument#2 in seconds, defaults COLLECTD_INTERVAL
 # Env variables:
 # DEBUG_CMD=[0|1]. Prints debug to output. For interactive debuging
 # DEBUG_OUTPUT_FILE=[path]. Duplicates output to this file
@@ -39,6 +40,8 @@ TELNET_CMD="${TELNET_BIN} -c -E"
 SEVERITY_FAILURE="failure"
 SEVERITY_WARNING="warning"
 SEVERITY_OK="okay"
+STARTUP_DELAY="${2:-${COLLECTD_INTERVAL:-$LOOP_INTERVAL}}"
+STARTUP_DELAY=${STARTUP_DELAY%%.*} # remove decimals
 
 # Include OpenWRT functions
 . /lib/functions.sh
@@ -190,6 +193,7 @@ type ${SEXPECT_BIN} >/dev/null || report_notification $SEVERITY_FAILURE \
 type ${TELNET_BIN} >/dev/null || report_notification $SEVERITY_FAILURE \
   "No 'telnet' binary found. Install it."
 
+sleep "${STARTUP_DELAY}s"
 # Infinite loop
 while true; do
   report_notification $SEVERITY_OK "Loop started"
